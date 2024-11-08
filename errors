@@ -1,0 +1,36 @@
+For Kubernetes v1.14 I find this procedure the most helpful:
+
+    https://stackoverflow.com/a/56334732/1147487
+    backup and re-generate all certs:
+
+ cd /etc/kubernetes/pki/
+ mv {apiserver.crt,apiserver-etcd-client.key,apiserver-kubelet-client.crt,front-proxy-ca.crt,front-proxy-client.crt,front-proxy-client.key,front-proxy-ca.key,apiserver-kubelet-client.key,apiserver.key,apiserver-etcd-client.crt} ~/
+ kubeadm init phase certs all --apiserver-advertise-address <IP>
+
+    backup and re-generate all kubeconfig files:
+
+ cd /etc/kubernetes/
+ mv {admin.conf,controller-manager.conf,kubelet.conf,scheduler.conf} ~/
+ kubeadm init phase kubeconfig all
+ reboot
+
+    copy new admin.conf:
+
+ cp -i /etc/kubernetes/admin.conf HOME/.kube/config
+ 
+ kubeadm reset --cri-socket unix:///var/run/cri-dockerd.sock
+
+
+
+
+kubeadm join 10.0.2.15:6443 --cri-socket unix:///var/run/cri-dockerd.sock --token 9kdqnu.mjpq1fvt1y0vkt0a --discovery-token-ca-cert-hash sha256:8dab45aade899f21ae8ccdcd9d94897efefbbb68e9807bd82d8f3146b0158915 
+
+kubeadm join 192.168.50.42:6443 --cri-socket unix:///var/run/cri-dockerd.sock --token i7nhi1.nwc3m39hfy09zuvz --discovery-token-ca-cert-hash sha256:0ecdea68324f6caded2c951015891c4b798026e8f898f4294171a8fb36f5d812
+
+kubeadm init phase certs all --apiserver-advertise-address=172.29.24.135
+
+kubeadm config print init-defaults > /etc/kubernetes/kubeadm-config.yaml
+kubeadm init phase certs all --config=/etc/kubernetes/kubeadm-config.yaml
+add the 172 network subnet
+
+kubeadm join 172.29.26.54:6443 --cri-socket unix:///var/run/cri-dockerd.sock --token 14klha.tu1yijd90x6obaic --discovery-token-ca-cert-hash sha256:87a3a67839ae14b5c95864aa263b816280fbd6106ed5ef92181875d6e250a1f4 
