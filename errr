@@ -1,0 +1,14 @@
+ ERROR: Unable to connect to socket 'queue/db/wdb'.
+
+2024/11/11 13:42:09 wazuh-remoted: ERROR: Error querying Wazuh DB to get agent's groups.
+
+2024-11-13T09:37:58.845Z	INFO	instance/beat.go:645	Home path: [/usr/share/filebeat] Config path: [/etc/filebeat] Data path: [/var/lib/filebeat] Logs path: [/var/log/filebeat]
+
+2024-11-13T09:37:58.845Z	INFO	instance/beat.go:653	Beat ID: 29183b8f-1585-4fd2-ae32-f81e276b99d3
+
+2024-11-13T09:37:58.846Z	INFO	instance/beat.go:392	filebeat stopped.
+
+2024-11-13T09:37:58.846Z	ERROR	instance/beat.go:956	Exiting: data path already locked by another beat. Please make sure that multiple beats are not sharing the same data path (path.data).
+
+Exiting: data path already locked by another beat. Please make sure that multiple beats are not sharing the same data path (path.data).
+
